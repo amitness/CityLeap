@@ -2,6 +2,7 @@ certifi==2017.11.5
 chardet==3.0.4
 dj-database-url==0.4.2
 Django==2.0.1
+geopy==1.11.0
 gunicorn==19.7.1
 idna==2.6
 psycopg2==2.7.3.2
