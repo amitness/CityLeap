@@ -1,7 +1,7 @@
-from django.shortcuts import render
 import requests
 from decouple import config
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
 
 from dashboard.models import Complain
 
@@ -50,6 +50,22 @@ def leap(request, complain_id):
     result = {
         "messages": [
             {"text": "success"}
+        ]
+    }
+    return JsonResponse(result)
+
+
+def listcomplains(request):
+    latitude = request.GET['lat']
+    longitude = request.GET['lon']
+    #TODO: Database sync garera top 5 complains return garne
+    result = {
+        "messages": [
+            {"text": "1. Complain"},
+            {"text": "2. Complain"},
+            {"text": "3. Complain"},
+            {"text": "4. Complain"},
+            {"text": "5. Complain"}
         ]
     }
     return JsonResponse(result)
