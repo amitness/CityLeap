@@ -1,7 +1,7 @@
 # from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from decouple import config
 import requests
+from decouple import config
+from django.http import HttpResponse, JsonResponse
 
 
 def dashboard(request):
@@ -13,10 +13,11 @@ def complain(request):
     longitude = request.GET['lon']
     text = request.GET['text']
     category = request.GET['category']
+    user_id = request.GET['user_id']
     # TODO: Store in DB model
     result = {
         "messages": [
-            {"text": "{}: {}: {}: {}".format(latitude, longitude, text, category)}
+            {"text": "{}: {}: {}: {}: {}".format(latitude, longitude, text, category, user_id)}
         ]
     }
     return JsonResponse(result)
