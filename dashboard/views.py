@@ -1,11 +1,13 @@
-# from django.shortcuts import render
+from django.shortcuts import render
 import requests
 from decouple import config
 from django.http import HttpResponse, JsonResponse
 
+from dashboard.models import Complain
+
 
 def dashboard(request):
-    return HttpResponse("Hello")
+    return render(request, 'index.html')
 
 
 def complain(request):
@@ -15,6 +17,12 @@ def complain(request):
     category = request.GET['category']
     user_id = request.GET['user_id']
     # TODO: Store in DB model
+    Complain.objects.create(latitude=latitude,
+                            longitude=longitude,
+                            text=text,
+                            category=category,
+                            user_id=user_id
+                            )
     result = {
         "messages": [
             {"text": "{}: {}: {}: {}: {}".format(latitude, longitude, text, category, user_id)}
@@ -33,3 +41,15 @@ def broadcast(request):
         .format(bot_id, user_id, chatfuel_token, block_name, message)
     r = requests.post(endpoint)
     return HttpResponse(r.status_code)
+
+
+def leap(request, complain_id):
+    c = Complain.objects.get(pk=complain_id)
+    c.upvote_count += 1
+    c.save()
+    result = {
+        "messages": [
+            {"text": "success"}
+        ]
+    }
+    return JsonResponse(result)
