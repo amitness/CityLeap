@@ -14,7 +14,7 @@ def complain(request):
     # return HttpResponse(request.GET.values())
     result = {
         "messages": [
-            {"text": "Thank you. Your complain has been registered."}
+            {"text": "{}: {}: {}: {}".format(latitude, longitude, text, category)}
         ]
     }
     return JsonResponse(result)
